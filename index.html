@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Digital Designer</title>
+    <style>
+        /* HK Grotesk Font */
+        @font-face {
+            font-family: 'HK Grotesk';
+            src: url('fonts/HKGrotesk-Regular.woff2') format('woff2'),
+                 url('fonts/HKGrotesk-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'HK Grotesk';
+            src: url('fonts/HKGrotesk-Medium.woff2') format('woff2'),
+                 url('fonts/HKGrotesk-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'HK Grotesk';
+            src: url('fonts/HKGrotesk-Bold.woff2') format('woff2'),
+                 url('fonts/HKGrotesk-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ECECEC;
+            --text-color: #101211;
+            --nav-bg: #ECECEC;
+            --accent: #333;
+        }
+
+        body {
+            font-family: 'HK Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f5f5f5;
+            --nav-bg: #1a1a1a;
+            --accent: #fff;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.6;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 6rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #home {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            font-size: clamp(10rem, 20vw, 15rem);
+            font-weight: 380;
+            line-height: 1.1;
+            letter-spacing: -0.06em;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-top: 2rem;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .skills {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .skill-item {
+            font-size: 1.1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--text-color);
+            opacity: 0.8;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .work-item {
+            background: var(--nav-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .work-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .work-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .work-item p {
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            padding: 2rem;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-email {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin: 2rem 0;
+        }
+
+        .contact-email a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 2px solid var(--text-color);
+            transition: opacity 0.3s;
+        }
+
+        .contact-email a:hover {
+            opacity: 0.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Ryan Martin</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+            <button class="theme-toggle" onclick="toggleTheme()">☾ Dark</button>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1 class="hero-text">Full Stack<br>Developer</h1>
+        <p class="subtitle">specialized in JavaScript, Svelte, Node.js, and building responsive web applications from front to back.</p>
+    </section>
+
+    <section id="about">
+        <div class="content-section">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a motivated full-stack developer who recently completed a Certificate of Proficiency in Full-Stack Web Development at the University of Auckland. With certifications in Python, HTML/CSS, and Responsive Web Design, I've completed 20+ projects totaling ~300 hours of hands-on development experience.</p>
+                    <p style="margin-top: 1.5rem;">Beyond coding, I'm a creative professional with experience in music, art, and online business. I bring a unique blend of technical skills and creative problem-solving to every project, whether it's building a web application or designing custom art pieces.</p>
+                </div>
+                <div class="skills">
+                    <div class="skill-item">JavaScript & Node.js</div>
+                    <div class="skill-item">Svelte & Express</div>
+                    <div class="skill-item">HTML, CSS & Responsive Design</div>
+                    <div class="skill-item">SQLite & Database Management</div>
+                    <div class="skill-item">Git & GitHub</div>
+                    <div class="skill-item">Python Development</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="content-section">
+            <h2>Selected Work</h2>
+            <div class="work-grid">
+                <div class="work-item">
+                    <h3>E-Commerce Platform</h3>
+                    <p>Built a full-stack online store using Node.js, Express, and SQLite. Features include user authentication, product management, shopping cart functionality, and responsive mobile-first design.</p>
+                </div>
+                <div class="work-item">
+                    <h3>Interactive Web Apps</h3>
+                    <p>Developed 20+ projects showcasing JavaScript proficiency, including dynamic web applications with Svelte framework, API integrations, and database-driven content.</p>
+                </div>
+                <div class="work-item">
+                    <h3>Artist Portfolio & Store</h3>
+                    <p>Created and manage an online business selling custom art on Depop and Instagram. Designed unique shirts, stickers, hoodies, and phone cases with integrated e-commerce functionality.</p>
+                </div>
+                <div class="work-item">
+                    <h3>Responsive Design Projects</h3>
+                    <p>Completed FreeCodeCamp's Responsive Web Design certification with 300+ hours of mobile-first development, creating accessible and user-friendly interfaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="content-section">
+            <h2>My Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-title">Planning</div>
+                    <p class="step-description">Understanding project requirements, user needs, and technical specifications. Planning architecture and choosing the right tech stack.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-title">Development</div>
+                    <p class="step-description">Building responsive, mobile-first applications using modern JavaScript frameworks and best practices in code organization.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-title">Testing</div>
+                    <p class="step-description">Rigorous testing across devices and browsers, debugging, and optimizing for performance and accessibility.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-title">Deployment</div>
+                    <p class="step-description">Version control with Git/GitHub, deploying to production, and providing documentation for maintenance and updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="content-section contact-content">
+            <h2>Let's Work Together</h2>
+            <p style="font-size: 1.2rem; opacity: 0.8;">Have a project in mind? I'd love to hear about it.</p>
+            <div class="contact-email">
+                <a href="mailto:ryanmartin671@gmail.com">ryanmartin671@gmail.com</a>
+            </div>
+            <div class="social-links">
+                <a href="tel:02041650589">020 4165 0589</a>
+                <a href="https://github.com/yourusername">GitHub</a>
+                <a href="https://www.instagram.com/yourhandle">Instagram</a>
+                <a href="https://www.depop.com/yourshop">Depop</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☼ Light';
+            } else {
+                btn.textContent = '☾ Dark';
+            }
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!--blah blah-->
