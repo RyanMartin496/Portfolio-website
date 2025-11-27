@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Digital Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+    <title>Ryan Martin - Full Stack Developer</title>
     <style>
         /* HK Grotesk Font */
         @font-face {
@@ -118,13 +119,118 @@
             flex-direction: row;
             align-items: flex-end;
             justify-content: space-between;
+            position: relative;
         }
+
+        .cube-container {
+            position: fixed;
+            top: 25%;
+            right: 8%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 200px;
+            perspective: 1000px;
+            z-index: 500;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--text-color);
+            background: rgba(236, 236, 236, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            opacity: 0.8;
+        }
+
+        .face-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .eyes {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .eye {
+            width: 20px;
+            height: 20px;
+            background: var(--text-color);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pupil {
+            width: 10px;
+            height: 10px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
+
+        .mouth {
+            width: 40px;
+            height: 20px;
+            border: 3px solid var(--text-color);
+            border-top: none;
+            border-radius: 0 0 40px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .mouth.surprised {
+            width: 25px;
+            height: 25px;
+            border: 3px solid var(--text-color);
+            border-radius: 50%;
+            border-top: 3px solid var(--text-color);
+        }
+
+        .mouth.sad {
+            width: 40px;
+            height: 20px;
+            border: 3px solid var(--text-color);
+            border-bottom: none;
+            border-radius: 40px 40px 0 0;
+            border-top: 3px solid var(--text-color);
+        }
+
+        body.dark-mode .cube-face {
+            background: rgba(26, 26, 26, 0.3);
+            border-color: var(--text-color);
+        }
+
+        .cube-face.front  { transform: rotateY(0deg) translateZ(100px); }
+        .cube-face.back   { transform: rotateY(180deg) translateZ(100px); }
+        .cube-face.right  { transform: rotateY(90deg) translateZ(100px); }
+        .cube-face.left   { transform: rotateY(-90deg) translateZ(100px); }
+        .cube-face.top    { transform: rotateX(90deg) translateZ(100px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); }
 
         .hero-text {
             font-size: clamp(10rem, 20vw, 15rem);
             font-weight: 380;
             line-height: 1.1;
             letter-spacing: -0.06em;
+            position: relative;
         }
 
         .subtitle {
@@ -280,15 +386,94 @@
 
             nav {
                 gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             section {
                 padding: 4rem 2rem;
             }
 
+            #home {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding-top: 8rem;
+            }
+
+            .hero-text {
+                font-size: clamp(3rem, 15vw, 6rem);
+            }
+
+            .subtitle {
+                max-width: 100%;
+            }
+
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            .cube-container {
+                position: fixed;
+                top: auto;
+                bottom: 2rem;
+                right: 2rem;
+                transform: none;
+                width: 120px;
+                height: 120px;
+                perspective: 600px;
+                z-index: 500;
+            }
+
+            .cube {
+                width: 100%;
+                height: 100%;
+            }
+
+            .cube-face {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cube-face.front  { transform: rotateY(0deg) translateZ(60px); }
+            .cube-face.back   { transform: rotateY(180deg) translateZ(60px); }
+            .cube-face.right  { transform: rotateY(90deg) translateZ(60px); }
+            .cube-face.left   { transform: rotateY(-90deg) translateZ(60px); }
+            .cube-face.top    { transform: rotateX(90deg) translateZ(60px); }
+            .cube-face.bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+            .eyes {
+                gap: 1.2rem;
+            }
+
+            .eye {
+                width: 15px;
+                height: 15px;
+            }
+
+            .pupil {
+                width: 7px;
+                height: 7px;
+            }
+
+            .mouth {
+                width: 30px;
+                height: 15px;
+                border-width: 2px;
+            }
+
+            .mouth.surprised {
+                width: 18px;
+                height: 18px;
+                border-width: 2px;
+            }
+
+            .mouth.sad {
+                width: 30px;
+                height: 15px;
+                border-width: 2px;
             }
 
             .work-grid {
@@ -315,6 +500,24 @@
     </header>
 
     <section id="home">
+        <div class="cube-container">
+            <div class="cube" id="cube">
+                <div class="cube-face front">
+                    <div class="face-content">
+                        <div class="eyes">
+                            <div class="eye"><div class="pupil" data-eye="left"></div></div>
+                            <div class="eye"><div class="pupil" data-eye="right"></div></div>
+                        </div>
+                        <div class="mouth"></div>
+                    </div>
+                </div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+            </div>
+        </div>
         <h1 class="hero-text">Full Stack<br>Developer</h1>
         <p class="subtitle">specialized in JavaScript, Svelte, Node.js, and building responsive web applications from front to back.</p>
     </section>
@@ -408,6 +611,88 @@
     </section>
 
     <script>
+        // Cube mouse interaction
+        const cube = document.getElementById('cube');
+        const cubeContainer = document.querySelector('.cube-container');
+        const pupils = document.querySelectorAll('.pupil');
+        const mouth = document.querySelector('.mouth');
+        let cubeRotationX = 0;
+        let cubeRotationY = 0;
+        let mouthTimeout;
+        let isMouseOnPage = true;
+
+        // Track when mouse leaves/enters the page
+        document.addEventListener('mouseleave', () => {
+            isMouseOnPage = false;
+            mouth.classList.remove('surprised');
+            mouth.classList.add('sad');
+        });
+
+        document.addEventListener('mouseenter', () => {
+            isMouseOnPage = true;
+            mouth.classList.remove('sad');
+        });
+
+        // Add hover listeners to all links
+        const links = document.querySelectorAll('a, button');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                if (isMouseOnPage) {
+                    clearTimeout(mouthTimeout);
+                    mouth.classList.add('surprised');
+                    mouth.classList.remove('sad');
+                }
+            });
+            link.addEventListener('mouseleave', () => {
+                if (isMouseOnPage) {
+                    mouthTimeout = setTimeout(() => {
+                        mouth.classList.remove('surprised');
+                    }, 500);
+                }
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            // Get cube position
+            const cubeRect = cubeContainer.getBoundingClientRect();
+            const cubeCenterX = cubeRect.left + cubeRect.width / 2;
+            const cubeCenterY = cubeRect.top + cubeRect.height / 2;
+            
+            const deltaX = e.clientX - cubeCenterX;
+            const deltaY = e.clientY - cubeCenterY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            
+            // For pupils (relative to cube position)
+            const maxMove = 5;
+            const moveX = (deltaX / distance) * Math.min(distance / 50, maxMove);
+            const moveY = (deltaY / distance) * Math.min(distance / 50, maxMove);
+
+            pupils.forEach(pupil => {
+                pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+            });
+
+            // For cube rotation (relative to cube position)
+            const angleX = -(deltaY / window.innerHeight) * 90; // Vertical rotation
+            const angleY = (deltaX / window.innerWidth) * 90;   // Horizontal rotation
+            
+            cubeRotationX = angleX;
+            cubeRotationY = angleY;
+        });
+
+        function animateCube() {
+            const currentRotX = parseFloat(cube.style.transform.match(/rotateX\(([-\d.]+)deg\)/)?.[1] || 0);
+            const currentRotY = parseFloat(cube.style.transform.match(/rotateY\(([-\d.]+)deg\)/)?.[1] || 0);
+            
+            const newRotX = currentRotX + (cubeRotationX - currentRotX) * 0.1;
+            const newRotY = currentRotY + (cubeRotationY - currentRotY) * 0.1;
+            
+            cube.style.transform = `rotateX(${newRotX}deg) rotateY(${newRotY}deg)`;
+            requestAnimationFrame(animateCube);
+        }
+
+        animateCube();
+
+        // Theme toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             const btn = document.querySelector('.theme-toggle');
@@ -418,6 +703,7 @@
             }
         }
 
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -430,5 +716,3 @@
     </script>
 </body>
 </html>
-
-<!--blah blah-->
