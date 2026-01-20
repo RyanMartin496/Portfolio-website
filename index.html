@@ -126,11 +126,33 @@
             position: fixed;
             top: 25%;
             right: 8%;
-            transform: translateY(-50%);
             width: 200px;
             height: 200px;
             perspective: 1000px;
             z-index: 500;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .cube-container.dragging {
+            cursor: grabbing;
+        }
+
+        .grab-hint {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.4;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .grab-hint.hidden {
+            opacity: 0;
         }
 
         .cube {
@@ -139,6 +161,7 @@
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
+            pointer-events: none;
         }
 
         .cube-face {
@@ -173,6 +196,16 @@
             background: var(--text-color);
             border-radius: 50%;
             position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .eye.squint {
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .eye.squint .pupil {
+            opacity: 0;
         }
 
         .pupil {
@@ -420,7 +453,6 @@
                 top: auto;
                 bottom: 2rem;
                 right: 2rem;
-                transform: none;
                 width: 120px;
                 height: 120px;
                 perspective: 600px;
@@ -500,7 +532,8 @@
     </header>
 
     <section id="home">
-        <div class="cube-container">
+        <div class="cube-container" id="cubeContainer">
+            <div class="grab-hint" id="grabHint">grab me to move me!</div>
             <div class="cube" id="cube">
                 <div class="cube-face front">
                     <div class="face-content">
@@ -519,7 +552,7 @@
             </div>
         </div>
         <h1 class="hero-text">Full Stack<br>Developer</h1>
-        <p class="subtitle">specialized in JavaScript, Svelte, Node.js, and building responsive web applications from front to back.</p>
+        <p class="subtitle">specialized in JavaScript, C#, Svelte, Node.js, .NET and building responsive web applications from front to back.</p>
     </section>
 
     <section id="about">
@@ -527,8 +560,8 @@
             <h2>About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I'm a motivated full-stack developer who recently completed a Certificate of Proficiency in Full-Stack Web Development at the University of Auckland. With certifications in Python, HTML/CSS, and Responsive Web Design, I've completed 20+ projects totaling ~300 hours of hands-on development experience.</p>
-                    <p style="margin-top: 1.5rem;">Beyond coding, I'm a creative professional with experience in music, art, and online business. I bring a unique blend of technical skills and creative problem-solving to every project, whether it's building a web application or designing custom art pieces.</p>
+                    <p>I'm a motivated full-stack developer who recently completed a Certificate of Proficiency in Full-Stack Web Development at the University of Auckland. With certifications in multiple different programming languages and Responsive Web Design, I've completed many projects and many hours of hands-on development experience over the three years that ive been studying programming.</p>
+                    <p style="margin-top: 1.5rem;">Beyond coding, I'm a creative professional with experience in music, art, and online business. I bring a unique blend of technical skills and creative problem-solving to every project, whether it's building a web application or creating custom designs and themes.</p>
                 </div>
                 <div class="skills">
                     <div class="skill-item">JavaScript & Node.js</div>
@@ -536,35 +569,50 @@
                     <div class="skill-item">HTML, CSS & Responsive Design</div>
                     <div class="skill-item">SQLite & Database Management</div>
                     <div class="skill-item">Git & GitHub</div>
-                    <div class="skill-item">Python Development</div>
+                    <div class="skill-item">C# & .NET</div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="work">
-        <div class="content-section">
-            <h2>Selected Work</h2>
-            <div class="work-grid">
-                <div class="work-item">
-                    <h3>E-Commerce Platform</h3>
-                    <p>Built a full-stack online store using Node.js, Express, and SQLite. Features include user authentication, product management, shopping cart functionality, and responsive mobile-first design.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Interactive Web Apps</h3>
-                    <p>Developed 20+ projects showcasing JavaScript proficiency, including dynamic web applications with Svelte framework, API integrations, and database-driven content.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Artist Portfolio & Store</h3>
-                    <p>Created and manage an online business selling custom art on Depop and Instagram. Designed unique shirts, stickers, hoodies, and phone cases with integrated e-commerce functionality.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Responsive Design Projects</h3>
-                    <p>Completed FreeCodeCamp's Responsive Web Design certification with 300+ hours of mobile-first development, creating accessible and user-friendly interfaces.</p>
-                </div>
+    <div class="content-section">
+        <h2>What I Build</h2>
+        <div class="work-grid">
+            <div class="work-item">
+                <h3>Full-Stack Web Projects</h3>
+                <p>
+                    I build complete web applications from front to back using either JavaScript, Node.js, Express, and databases like SQLite or C#, .NET, and SQLite.
+                    This includes authentication, APIs, dynamic content, and responsive layouts.
+                </p>
+            </div>
+
+            <div class="work-item">
+                <h3>Frontend & UI Experiments</h3>
+                <p>
+                    I enjoy creating interactive interfaces and visual elements using modern frontend tools.
+                    This includes animations, micro-interactions, and experimenting with clean, minimal UI design.
+                </p>
+            </div>
+
+            <div class="work-item">
+                <h3>Learning-Driven Projects</h3>
+                <p>
+                    Many of my projects come from learning new technologies or improving existing skills —
+                    rebuilding ideas in different frameworks, refining performance, or adding new features.
+                </p>
+            </div>
+
+            <div class="work-item">
+                <h3>Creative & Side Projects</h3>
+                <p>
+                    Outside of traditional dev work, I've built and managed creative online projects and poster ads combining design,
+                    branding, and web technology, blending technical problem-solving with creativity.
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="process">
         <div class="content-section">
@@ -611,15 +659,26 @@
     </section>
 
     <script>
-        // Cube mouse interaction
+        // Cube mouse interaction and drag functionality
         const cube = document.getElementById('cube');
-        const cubeContainer = document.querySelector('.cube-container');
+        const cubeContainer = document.getElementById('cubeContainer');
         const pupils = document.querySelectorAll('.pupil');
+        const eyes = document.querySelectorAll('.eye');
         const mouth = document.querySelector('.mouth');
+        const grabHint = document.getElementById('grabHint');
         let cubeRotationX = 0;
         let cubeRotationY = 0;
         let mouthTimeout;
         let isMouseOnPage = true;
+
+        // Drag variables
+        let isDragging = false;
+        let currentX = 0;
+        let currentY = 0;
+        let initialX = 0;
+        let initialY = 0;
+        let xOffset = 0;
+        let yOffset = 0;
 
         // Track when mouse leaves/enters the page
         document.addEventListener('mouseleave', () => {
@@ -652,31 +711,34 @@
             });
         });
 
+        // Mouse move for eyes and cube rotation (when not dragging)
         document.addEventListener('mousemove', (e) => {
-            // Get cube position
-            const cubeRect = cubeContainer.getBoundingClientRect();
-            const cubeCenterX = cubeRect.left + cubeRect.width / 2;
-            const cubeCenterY = cubeRect.top + cubeRect.height / 2;
-            
-            const deltaX = e.clientX - cubeCenterX;
-            const deltaY = e.clientY - cubeCenterY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            
-            // For pupils (relative to cube position)
-            const maxMove = 5;
-            const moveX = (deltaX / distance) * Math.min(distance / 50, maxMove);
-            const moveY = (deltaY / distance) * Math.min(distance / 50, maxMove);
+            if (!isDragging) {
+                // Get cube position
+                const cubeRect = cubeContainer.getBoundingClientRect();
+                const cubeCenterX = cubeRect.left + cubeRect.width / 2;
+                const cubeCenterY = cubeRect.top + cubeRect.height / 2;
+                
+                const deltaX = e.clientX - cubeCenterX;
+                const deltaY = e.clientY - cubeCenterY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                // For pupils (relative to cube position)
+                const maxMove = 5;
+                const moveX = (deltaX / distance) * Math.min(distance / 50, maxMove);
+                const moveY = (deltaY / distance) * Math.min(distance / 50, maxMove);
 
-            pupils.forEach(pupil => {
-                pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
-            });
+                pupils.forEach(pupil => {
+                    pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+                });
 
-            // For cube rotation (relative to cube position)
-            const angleX = -(deltaY / window.innerHeight) * 90; // Vertical rotation
-            const angleY = (deltaX / window.innerWidth) * 90;   // Horizontal rotation
-            
-            cubeRotationX = angleX;
-            cubeRotationY = angleY;
+                // For cube rotation (relative to cube position)
+                const angleX = -(deltaY / window.innerHeight) * 90;
+                const angleY = (deltaX / window.innerWidth) * 90;
+                
+                cubeRotationX = angleX;
+                cubeRotationY = angleY;
+            }
         });
 
         function animateCube() {
@@ -691,6 +753,70 @@
         }
 
         animateCube();
+
+        // Drag functionality
+        cubeContainer.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        
+        cubeContainer.addEventListener('touchstart', dragStart);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+
+            isDragging = true;
+            cubeContainer.classList.add('dragging');
+            
+            // Make eyes squint
+            eyes.forEach(eye => eye.classList.add('squint'));
+            
+            // Hide the hint permanently after first grab
+            grabHint.classList.add('hidden');
+            setTimeout(() => {
+                grabHint.style.display = 'none';
+            }, 500);
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                setTranslate(currentX, currentY, cubeContainer);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+            cubeContainer.classList.remove('dragging');
+            
+            // Remove squint
+            eyes.forEach(eye => eye.classList.remove('squint'));
+        }
 
         // Theme toggle
         function toggleTheme() {
